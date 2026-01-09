@@ -2,21 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --accent-1: #ff6b9d;
+  --accent-2: #c44bd1;
+  --accent-3: #ff8fab;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv11", "ss01";
 }
 
 @layer utilities {
@@ -24,41 +27,226 @@ body {
     text-wrap: balance;
   }
 
+  /* Modern gradient mesh */
   .gradient-bg {
-    background: linear-gradient(135deg, #FF6B9D 0%, #C44BD1 100%);
+    background: linear-gradient(135deg,
+      rgba(255, 107, 157, 0.95) 0%,
+      rgba(196, 75, 209, 0.95) 50%,
+      rgba(255, 139, 171, 0.95) 100%
+    );
+  }
+
+  .gradient-mesh {
+    background:
+      radial-gradient(at 27% 37%, hsla(330, 100%, 70%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, hsla(280, 90%, 65%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, hsla(320, 95%, 72%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, hsla(340, 100%, 76%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, hsla(285, 95%, 68%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 33% 50%, hsla(310, 100%, 70%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 79% 53%, hsla(290, 90%, 65%, 0.15) 0px, transparent 50%);
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #FF6B9D 0%, #C44BD1 100%);
+    background: linear-gradient(135deg,
+      #ff6b9d 0%,
+      #c44bd1 50%,
+      #ff8fab 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 700;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Modern shadows */
+  .shadow-premium {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.03),
+      0 1px 3px rgba(0, 0, 0, 0.02),
+      0 4px 8px rgba(0, 0, 0, 0.02),
+      0 8px 16px rgba(0, 0, 0, 0.02),
+      0 16px 32px rgba(0, 0, 0, 0.02);
+  }
+
+  .shadow-glow {
+    box-shadow:
+      0 0 20px rgba(255, 107, 157, 0.15),
+      0 0 40px rgba(196, 75, 209, 0.1);
   }
 }
 
 /* Animations */
-@keyframes float {
+@keyframes float-smooth {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-30px) translateX(10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
   }
 }
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.3),
+                0 0 40px rgba(196, 75, 209, 0.2);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 40px rgba(196, 75, 209, 0.5);
+    box-shadow: 0 0 40px rgba(255, 107, 157, 0.6),
+                0 0 80px rgba(196, 75, 209, 0.4);
+    transform: scale(1.05);
   }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-100px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotate-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.animate-float-smooth {
+  animation: float-smooth 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 4s ease-in-out infinite;
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.animate-blob-morph {
+  animation: blob-morph 10s ease-in-out infinite;
 }
