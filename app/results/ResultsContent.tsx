@@ -18,6 +18,16 @@ export default function ResultsContent() {
     setTimeout(() => setShowConfetti(false), 3000);
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const key = "delulu-test-counted";
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "true");
+    fetch("/api/stats", { method: "POST" }).catch(() => {
+      sessionStorage.removeItem(key);
+    });
+  }, []);
+
   if (!mounted) {
     return null;
   }
@@ -26,38 +36,44 @@ export default function ResultsContent() {
   const percentage = getPercentage(score);
   const comparison = Math.min(95, Math.max(5, percentage + Math.floor(Math.random() * 20 - 10)));
 
-  const shareText = `Je suis ${percentage}% delulu ! 😱 Et toi ? 💫`;
-  const shareUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const shareText = `Je suis ${percentage}% delulu (${result.title}) ! 😱 Et toi ? 💫`;
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   const handleShare = (platform: string) => {
     const encodedText = encodeURIComponent(shareText);
     const encodedUrl = encodeURIComponent(shareUrl);
 
     const urls: { [key: string]: string } = {
-      twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}&hashtags=DeluluCalculator,Delulu`,
+      x: `https://x.com/intent/post?text=${encodedText}&url=${encodedUrl}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
       whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
       tiktok: "",
+      instagram: "",
       copy: "",
     };
 
     if (platform === "copy") {
       navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
       alert("Lien copié ! 📋");
-    } else if (platform === "tiktok") {
+    } else if (platform === "tiktok" || platform === "instagram") {
       // Copier le texte dans le clipboard
       navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
 
       // Essayer d'ouvrir TikTok sur mobile
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        // Tenter d'ouvrir l'app TikTok
-        window.location.href = "snssdk1128://";
-        setTimeout(() => {
-          alert("📱 Texte copié ! Ouvre TikTok et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
-        }, 500);
+      if (platform === "tiktok") {
+        if (isMobile) {
+          // Tenter d'ouvrir l'app TikTok
+          window.location.href = "snssdk1128://";
+          setTimeout(() => {
+            alert("📱 Texte copié ! Ouvre TikTok et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
+          }, 500);
+        } else {
+          alert("📱 Texte copié ! Ouvre TikTok sur ton téléphone et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
+        }
       } else {
-        alert("📱 Texte copié ! Ouvre TikTok sur ton téléphone et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
+        window.open("https://www.instagram.com/", "_blank");
+        alert("📸 Texte copié ! Ouvre Instagram et colle-le dans ta story 🔥\n\n#Delulu #DeluluCalculator");
       }
     } else {
       window.open(urls[platform], "_blank", "width=600,height=400");
@@ -156,13 +172,23 @@ export default function ResultsContent() {
               </button>
 
               <button
-                onClick={() => handleShare("twitter")}
-                className="px-6 py-3 bg-[#1DA1F2] text-white rounded-full font-semibold hover:scale-105 transition-all shadow-lg flex items-center gap-2"
+                onClick={() => handleShare("x")}
+                className="px-6 py-3 bg-black text-white rounded-full font-semibold hover:scale-105 transition-all shadow-lg flex items-center gap-2"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  <path d="M18.901 1.153h3.69l-8.06 9.217L24 22.847h-7.406l-5.8-7.59-6.638 7.59H.48l8.618-9.85L0 1.153h7.594l5.243 6.932 6.064-6.932zm-1.293 19.49h2.043L6.479 3.246H4.29l13.318 17.397z"/>
                 </svg>
-                Twitter
+                X
+              </button>
+
+              <button
+                onClick={() => handleShare("instagram")}
+                className="px-6 py-3 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-full font-semibold hover:scale-105 transition-all shadow-lg flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zm0 2a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm5.25-.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z"/>
+                </svg>
+                Instagram
               </button>
 
               <button
