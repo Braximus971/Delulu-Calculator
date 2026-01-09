@@ -31,17 +31,23 @@ export default function Home() {
       {/* Gradient Mesh Background */}
       <div className="absolute inset-0 gradient-mesh"></div>
 
-      {/* Subtle blur orbs */}
-      <div className="absolute top-10 left-10 w-[28rem] h-[28rem] bg-pink-200/30 rounded-full blur-3xl animate-pulse-soft"></div>
-      <div className="absolute bottom-16 right-12 w-[32rem] h-[32rem] bg-purple-200/25 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: "2s" }}></div>
-      <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-fuchsia-200/20 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: "1s" }}></div>
+      {/* Animated blur orbs - MUCH more visible! */}
+      <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-pink-400/40 rounded-full blur-3xl animate-pulse-soft animate-blob-morph"></div>
+      <div className="absolute bottom-20 right-1/4 w-[500px] h-[500px] bg-purple-400/40 rounded-full blur-3xl animate-pulse-soft animate-blob-morph" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-pink-300/30 rounded-full blur-3xl animate-float-slow"></div>
+
+      {/* Floating animated elements */}
+      <div className="absolute top-20 left-10 text-6xl animate-float-smooth opacity-60">✨</div>
+      <div className="absolute top-40 right-20 text-5xl animate-float-smooth opacity-50" style={{ animationDelay: "1s" }}>💖</div>
+      <div className="absolute bottom-32 left-20 text-6xl animate-float-smooth opacity-60" style={{ animationDelay: "2s" }}>💫</div>
+      <div className="absolute bottom-20 right-32 text-5xl animate-float-smooth opacity-50" style={{ animationDelay: "3s" }}>🌟</div>
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
         <div className="max-w-6xl w-full">
           {/* Stats Badge */}
-          <div className="flex justify-center mb-10">
-            <div className="glass px-6 py-2 rounded-full shadow-premium border border-white/60">
+          <div className="flex justify-center mb-8 animate-slide-up">
+            <div className="glass px-6 py-2 rounded-full shadow-premium animate-pulse-glow">
               <p className="text-sm font-medium text-gray-700">
                 <span className="gradient-text font-bold">
                   {count === null ? "—" : count.toLocaleString()}
@@ -56,27 +62,18 @@ export default function Home() {
           </div>
 
           {/* Hero Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center mb-14">
-            <div className="text-center lg:text-left space-y-6">
-              {/* Main Title */}
-              <div className="space-y-3">
-                <h1 className="text-7xl md:text-9xl font-black tracking-tight">
-                  <span className="gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                    DELULU
-                  </span>
-                </h1>
-                <p className="text-2xl md:text-3xl font-bold text-gray-400 tracking-[0.45em]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  CALCULATOR
-                </p>
-              </div>
-
-              {/* Tagline */}
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                Attention : risque de révélation.
-                <span className="block text-2xl md:text-3xl font-semibold text-gray-600 mt-3">
-                  Découvre ton niveau de <span className="gradient-text">delulu</span> en 2 minutes ✨
+          <div className="text-center space-y-6 mb-12">
+            {/* Main Title */}
+            <div className="space-y-2 animate-bounce-in">
+              <h1 className="text-7xl md:text-9xl font-black tracking-tight animate-gradient">
+                <span className="gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  DELULU
                 </span>
-              </h2>
+              </h1>
+              <p className="text-2xl md:text-3xl font-bold text-gray-400 tracking-widest animate-slide-up" style={{ fontFamily: "'Space Grotesk', sans-serif", animationDelay: "0.2s" }}>
+                CALCULATOR
+              </p>
+            </div>
 
               {/* Description */}
               <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
@@ -102,10 +99,22 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Example Results */}
-            <div className="relative">
-              <div className="absolute -top-6 -left-6 bg-white/80 rounded-2xl px-4 py-2 text-xs font-semibold text-gray-600 shadow-premium border border-white/70">
-                Résultats prêts à poster
+          {/* CTA Card */}
+          <div className="flex justify-center mb-12 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+            <Link href="/quiz" className="group">
+              <div className="glass hover:glass-dark p-8 rounded-3xl shadow-premium hover:shadow-glow transition-all duration-500 animate-pulse-glow">
+                <button className="relative px-12 py-6 text-xl md:text-2xl font-bold text-white rounded-2xl gradient-bg hover:scale-110 transition-all duration-300 shadow-lg overflow-hidden">
+                  <span className="relative z-10 flex items-center gap-3">
+                    Commencer le test
+                    <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                </button>
+                <p className="text-center text-sm text-gray-500 mt-4 animate-pulse">
+                  ⏱️ Moins de 2 minutes
+                </p>
               </div>
               <div className="grid gap-5">
                 <div className="glass rounded-3xl shadow-premium p-6 md:p-7 text-center border border-white/60 relative overflow-hidden">
@@ -149,19 +158,19 @@ export default function Home() {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow transition-all duration-300">
-              <div className="text-3xl mb-3">✨</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow hover:scale-105 transition-all duration-300 animate-slide-up" style={{ animationDelay: "0.5s" }}>
+              <div className="text-3xl mb-3 animate-bounce-in" style={{ animationDelay: "0.6s" }}>✨</div>
               <h3 className="font-bold text-gray-900 mb-2">15 questions</h3>
               <p className="text-sm text-gray-600">Des questions fun qui vont droit au but</p>
             </div>
-            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow transition-all duration-300">
-              <div className="text-3xl mb-3">🎯</div>
+            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow hover:scale-105 transition-all duration-300 animate-slide-up" style={{ animationDelay: "0.6s" }}>
+              <div className="text-3xl mb-3 animate-bounce-in" style={{ animationDelay: "0.7s" }}>🎯</div>
               <h3 className="font-bold text-gray-900 mb-2">5 catégories</h3>
               <p className="text-sm text-gray-600">Du réaliste au delulu terminal</p>
             </div>
-            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow transition-all duration-300">
-              <div className="text-3xl mb-3">📱</div>
+            <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow hover:scale-105 transition-all duration-300 animate-slide-up" style={{ animationDelay: "0.7s" }}>
+              <div className="text-3xl mb-3 animate-bounce-in" style={{ animationDelay: "0.8s" }}>📱</div>
               <h3 className="font-bold text-gray-900 mb-2">Partage facile</h3>
               <p className="text-sm text-gray-600">TikTok, Instagram, X & plus</p>
             </div>
