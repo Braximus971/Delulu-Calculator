@@ -18,6 +18,16 @@ export default function ResultsContent() {
     setTimeout(() => setShowConfetti(false), 3000);
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const key = "delulu-test-counted";
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "true");
+    fetch("/api/stats", { method: "POST" }).catch(() => {
+      sessionStorage.removeItem(key);
+    });
+  }, []);
+
   if (!mounted) {
     return null;
   }
