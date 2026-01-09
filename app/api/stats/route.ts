@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 
-// Variable pour stocker le nombre de tests réels complétés
+// ATTENTION : Sans base de données, ce compteur se réinitialise
+// à chaque redémarrage de l'instance serverless Vercel.
+// Pour un vrai compteur persistant, il faut utiliser :
+// - Upstash Redis (gratuit, recommandé)
+// - Vercel KV
+// - Ou toute autre base de données
+
 let totalTests = 0;
 
 export async function GET() {
