@@ -1,19 +1,23 @@
 import { NextResponse } from "next/server";
 
-// ATTENTION : Sans base de données, ce compteur se réinitialise
-// à chaque redémarrage de l'instance serverless Vercel.
-// Pour un vrai compteur persistant, il faut utiliser :
-// - Upstash Redis (gratuit, recommandé)
-// - Vercel KV
-// - Ou toute autre base de données
-
-let totalTests = 0;
+// In-memory storage
+// Note: Sur Vercel serverless, ceci se réinitialise entre les instances
+// mais fonctionne pendant la durée de vie d'une instance
+let stats = {
+  totalTests: 0,
+};
 
 export async function GET() {
-  return NextResponse.json({ total: totalTests });
+  return NextResponse.json({ total: stats.totalTests });
 }
 
 export async function POST() {
-  totalTests += 1;
-  return NextResponse.json({ total: totalTests });
+  try {
+    // Increment total tests
+    stats.totalTests++;
+    return NextResponse.json({ success: true, total: stats.totalTests });
+  } catch (error) {
+    console.error("Error saving stats:", error);
+    return NextResponse.json({ error: "Failed to save stats" }, { status: 500 });
+  }
 }
