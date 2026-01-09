@@ -39,28 +39,48 @@ export default function Home() {
           </div>
 
           {/* Hero Section */}
-          <div className="text-center space-y-6 mb-12">
-            {/* Main Title */}
-            <div className="space-y-2">
-              <h1 className="text-7xl md:text-9xl font-black tracking-tight">
-                <span className="gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  DELULU
-                </span>
-              </h1>
-              <p className="text-2xl md:text-3xl font-bold text-gray-400 tracking-widest" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                CALCULATOR
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center mb-12">
+            <div className="text-center lg:text-left space-y-6">
+              {/* Main Title */}
+              <div className="space-y-2">
+                <h1 className="text-7xl md:text-9xl font-black tracking-tight">
+                  <span className="gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                    DELULU
+                  </span>
+                </h1>
+                <p className="text-2xl md:text-3xl font-bold text-gray-400 tracking-widest" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  CALCULATOR
+                </p>
+              </div>
+
+              {/* Tagline */}
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Découvre ton niveau de <span className="gradient-text">delulu</span> en 2 minutes !
+              </h2>
+
+              {/* Description */}
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                15 questions fun, un score instantané, et un résultat prêt à partager.
               </p>
             </div>
 
-            {/* Tagline */}
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-8">
-              À quel point es-tu <span className="gradient-text">delulu</span> ?
-            </h2>
-
-            {/* Description */}
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              15 questions pour découvrir ton vrai niveau de délire en amour
-            </p>
+            {/* Example Result */}
+            <div className="glass rounded-3xl shadow-premium p-6 md:p-8 text-center">
+              <p className="text-sm uppercase tracking-widest text-gray-500 font-semibold mb-4">
+                Exemple de résultat
+              </p>
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full gradient-bg text-white font-bold text-lg mb-4">
+                34/45
+              </div>
+              <div className="text-6xl mb-4">🌟</div>
+              <h3 className="text-2xl font-bold gradient-text mb-2">MEGA DELULU</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                “Tu t’inventes des stories Netflix dans ta tête.” 😏
+              </p>
+              <div className="bg-white/70 rounded-2xl px-4 py-3 text-sm text-gray-700">
+                Partage ce résultat et tag tes potes 💫
+              </div>
+            </div>
           </div>
 
           {/* CTA Card */}
@@ -84,7 +104,7 @@ export default function Home() {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="glass p-6 rounded-2xl shadow-premium hover:shadow-glow transition-all duration-300">
               <div className="text-3xl mb-3">✨</div>
               <h3 className="font-bold text-gray-900 mb-2">15 questions</h3>
@@ -103,7 +123,7 @@ export default function Home() {
           </div>
 
           {/* Social Tags */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
             {["#Delulu", "#DeluluCalculator", "#Dating", "#GenZ", "#Trending"].map((tag) => (
               <span key={tag} className="glass px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-glow transition-all duration-300">
                 {tag}
