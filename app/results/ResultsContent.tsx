@@ -37,12 +37,28 @@ export default function ResultsContent() {
       twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}&hashtags=DeluluCalculator,Delulu`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
       whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
+      tiktok: "",
       copy: "",
     };
 
     if (platform === "copy") {
       navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
       alert("Lien copié ! 📋");
+    } else if (platform === "tiktok") {
+      // Copier le texte dans le clipboard
+      navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+
+      // Essayer d'ouvrir TikTok sur mobile
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        // Tenter d'ouvrir l'app TikTok
+        window.location.href = "snssdk1128://";
+        setTimeout(() => {
+          alert("📱 Texte copié ! Ouvre TikTok et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
+        }, 500);
+      } else {
+        alert("📱 Texte copié ! Ouvre TikTok sur ton téléphone et colle-le dans ta vidéo 🎥\n\n#Delulu #DeluluCalculator");
+      }
     } else {
       window.open(urls[platform], "_blank", "width=600,height=400");
     }
@@ -129,6 +145,16 @@ export default function ResultsContent() {
           <div className="mb-8">
             <h3 className="text-xl font-bold text-gray-800 mb-4">Partage ton résultat !</h3>
             <div className="flex flex-wrap gap-3 justify-center">
+              <button
+                onClick={() => handleShare("tiktok")}
+                className="px-6 py-3 bg-black text-white rounded-full font-semibold hover:scale-105 transition-all shadow-lg flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+                TikTok
+              </button>
+
               <button
                 onClick={() => handleShare("twitter")}
                 className="px-6 py-3 bg-[#1DA1F2] text-white rounded-full font-semibold hover:scale-105 transition-all shadow-lg flex items-center gap-2"
